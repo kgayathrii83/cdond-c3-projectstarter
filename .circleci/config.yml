@@ -164,6 +164,10 @@ jobs:
             --filters "Name=tag:Project,Values=udapeople" \
             --output text >> .circleci/ansible/inventory.txt
             cat .circleci/ansible/inventory.txt        
+      - run:
+          name: Install tar utility
+          command: |
+            yum install -y tar gzip            
       - persist_to_workspace:
           root: ~/
           paths:

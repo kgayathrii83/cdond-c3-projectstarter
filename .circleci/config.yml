@@ -297,7 +297,7 @@ jobs:
             npm install
             npm i
             echo "Contents  of the inventory.txt file is -------"
-            cat inventory.txt
+            cat ~/project/.circleci/ansible/inventory.txt
             echo ENVIROMENT=production > ".env"
             echo TYPEORM_CONNECTION=postgres >> ".env"
             echo TYPEORM_ENTITIES=./src/modules/domain/**/*.entity.ts >> ".env"

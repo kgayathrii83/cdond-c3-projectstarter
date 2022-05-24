@@ -5,7 +5,7 @@
     src: artifact.tar.gz
     dest: /home/ubuntu/artifact.tar.gz
 
-- name: Start PM2
+- name: Install and Start PM2
   become: true
   shell: |
     cd /home/ubuntu/

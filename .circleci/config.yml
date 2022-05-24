@@ -197,7 +197,7 @@ jobs:
 
   run-migrations:
     docker:
-      - image: circleci/node:14.18.1
+      - image: circleci/node:13.8.0
     steps:
       - checkout
       - restore_cache:
@@ -228,7 +228,7 @@ jobs:
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then
               # If you are using kvdb.io, generate the bucket ID "9GE4jRtKznmVKRfvdBABBe" in your local terminal first
-              curl -k https://kvdb.io/TCN89DHKUevUQaow54g9Za/migration_d942609  -d '1'                
+              curl -k https://kvdb.io/TCN89DHKUevUQaow54g9Za/migration_$\{CIRCLE_WORKFLOW_ID:0:7\})  -d '1'                
             fi            
       - destroy-environment     
 

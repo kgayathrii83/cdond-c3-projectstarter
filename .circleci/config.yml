@@ -208,6 +208,7 @@ jobs:
             cd backend
             npm install
             npm audit fix
+            npm run build
             echo ENVIROMENT=$ENVIROMENT > .env
             echo TYPEORM_CONNECTION=$TYPEORM_CONNECTION >> .env
             echo TYPEORM_MIGRATIONS_DIR=$TYPEORM_MIGRATIONS_DIR >> .env

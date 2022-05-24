@@ -298,7 +298,7 @@ jobs:
             npm run build
             cd ..
             # Zip the directory
-            tar -C backend -czvf .circleci/ansible/files/artifact.tar.gz .
+            tar -C backend -czvf artifact.tar.gz .
             cd .circleci/ansible
             echo "Contents  of the inventory.txt file is -------"
             cat inventory.txt
@@ -327,6 +327,8 @@ jobs:
           command: |
             apk add --update curl nodejs npm
             pip install awscli --upgrade
+      - attach_workspace:
+          at: ~/
       - run:
           name: Get backend url
           command: |
@@ -341,7 +343,7 @@ jobs:
               return 0
             else
               return 1
-            fi            
+            fi
       - run:
           name: Frontend smoke test.
           command: |

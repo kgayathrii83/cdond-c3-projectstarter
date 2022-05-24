@@ -189,7 +189,7 @@ jobs:
             apk add --update ansible
             pip install awscli --upgrade          
       - run:
-          name: Run Playbook and Configure server
+          name: Run Playbook and Configure the server
           command: |
             cd .circleci/ansible
             ansible-playbook -i inventory.txt configure-server.yml            

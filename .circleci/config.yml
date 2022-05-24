@@ -240,6 +240,10 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
+      - run:
+          name: Install tar utility
+          command: |
+            yum install -y tar gzip         
       - attach_workspace:
           at: ~/      
       - run:
@@ -247,11 +251,7 @@ jobs:
           command: |
             curl --silent --location https://rpm.nodesource.com/setup_14.x | bash -
             yum install -y nodejs
-            yum install -y tar gzip
-      - run:
-          name: Install tar utility
-          command: |
-            yum install -y tar gzip             
+            yum install -y tar gzip         
       - run:
           name: Get backend url
           command: |

@@ -184,7 +184,7 @@ jobs:
           command: |
             cat ~/project/.circleci/ansible/inventory.txt
       - run:
-          name: install dependencies
+          name: install dependency
           command: |
             apk add --update ansible
             pip install awscli --upgrade          

@@ -385,6 +385,8 @@ jobs:
               aws cloudformation delete-stack --stack-name udaPeople-frontend-${OldWorkflowID}
               aws cloudformation delete-stack --stack-name udaPeople-backend-${OldWorkflowID}
             fi
+      - destroy-environment
+      - revert-migrations            
 
 workflows:
   default:

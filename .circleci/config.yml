@@ -259,7 +259,7 @@ jobs:
             export BACKEND_IP=$(aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress'  --output text)
             export API_URL="http://${BACKEND_IP}:3030"
             echo "API_URL = ${API_URL}"
-            echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
+            echo API_URL="http://${BACKEND_IP}:3030" > frontend/.env
             cat frontend/.env  
       - restore_cache:
           keys: [frontend-build]             
@@ -267,10 +267,13 @@ jobs:
           name: Deploy frontend objects
           command: |
             cd frontend
+            cat .env
             npm install
             npm run build
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
+            aws s3api create-bucket --bucket udapeople-${CIRCLE_WORKFLOW_ID:0:7}
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
+            aws s3 cp .env s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7}
       - destroy-environment   
 
   deploy-backend:
@@ -319,7 +322,8 @@ jobs:
       - run:
           name: Get backend url and do smoke test
           command: |
-            export BACKEND_IP=$(aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --filters "Name=tag:project,Values=udapeople"  --output text)
+            #export BACKEND_IP=$(aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --filters "Name=tag:project,Values=udapeople"  --output text)
+            export BACKEND_IP=$(tail -n 1 ~/project/.circleci/ansible/inventory.txt)
             export API_URL="http://${BACKEND_IP}:3030"
             echo "${API_URL}"
             if curl "${API_URL}/api/status" | grep "ok"
